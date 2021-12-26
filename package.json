@@ -1,0 +1,23 @@
+{
+  "name": "front-main-fjoubert",
+  "version": "1.0.0",
+  "description": "frontend code for fjoubert main page",
+  "main": "main.js",
+  "scripts": {
+    "test": "fjoubert-test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/thomas-joubert/webserver-front.git"
+  },
+  "keywords": [
+    "front",
+    "websersver"
+  ],
+  "author": "thonas.joubert",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thomas-joubert/webserver-front/issues"
+  },
+  "homepage": "https://github.com/thomas-joubert/webserver-front#readme"
+}
