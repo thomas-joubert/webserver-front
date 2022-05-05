@@ -4,6 +4,7 @@ import Browser
 import Html exposing (Html, button, div, input, text)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick, onInput)
+import Set exposing (Set)
 
 
 
@@ -19,14 +20,14 @@ main =
 
 
 type alias Model =
-    { items : List String
+    { items : Set String
     , newItem : String
     }
 
 
 init : Model
 init =
-    Model [ "Test", "Test." ] ""
+    Model (Set.fromList [ "Test", "Test." ]) ""
 
 
 
@@ -35,7 +36,7 @@ init =
 
 type Msg
     = Add
-    | Remove
+    | Remove String
     | Type String
 
 
@@ -44,13 +45,13 @@ update msg model =
     case msg of
         Add ->
             if model.newItem /= "" then
-                { model | items = model.newItem :: model.items, newItem = "" }
+                { model | items = Set.insert model.newItem model.items, newItem = "" }
 
             else
                 model
 
-        Remove ->
-            model
+        Remove toDelete ->
+            { model | items = Set.remove toDelete model.items }
 
         Type typed ->
             { model | newItem = typed }
@@ -66,7 +67,7 @@ view model =
         [ input [ type_ "text", placeholder "type...", value model.newItem, onInput Type ] []
         , button [ onClick Add ] [ text "add" ]
         ]
-        :: List.map outList model.items
+        :: List.map outList (Set.toList model.items)
         |> div []
 
 
@@ -78,5 +79,5 @@ outList : String -> Html Msg
 outList data =
     div []
         [ text data
-        , button [ onClick Remove ] [ text "delete" ]
+        , button [ onClick (Remove data) ] [ text "delete" ]
         ]
